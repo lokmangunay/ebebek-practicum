@@ -1,9 +1,12 @@
+package com.ebebek;
+
 public class Employee {
 
     private String name;
     private double salary;
     private double workHours;
     private int hireYear;
+    private final int currentYear = 2021;
 
     public String getName() {
         return name;
@@ -37,6 +40,9 @@ public class Employee {
         this.hireYear = hireYear;
     }
 
+    public Employee() {
+    }
+
     public Employee(String name, double salary, double workHours, int hireYear) {
         this.name = name;
         this.salary = salary;
@@ -61,18 +67,19 @@ public class Employee {
     }
 
     public double raiseSalary() {
-        int yearsWorked = 2021 - hireYear;
+        int yearsWorked = currentYear - hireYear;
         if (yearsWorked < 10) {
             return this.salary * 0.05;
         } else if (yearsWorked < 20) {
             return this.salary * 0.1;
         } else return this.salary * 0.15;
+
     }
 
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "com.ebebek.Employee{" +
                 "name='" + name + '\'' +
                 ", salary=" + salary +
                 ", workHours=" + workHours +
@@ -80,7 +87,12 @@ public class Employee {
                 ", tax=" + tax() +
                 ", bonus=" + bonus() +
                 ", raisedSalary=" + raiseSalary() +
-                ", salaryInTotal=" + (this.salary + raiseSalary() + bonus() - tax()) +
+                ", salaryInTotal=" + cumulativeSalary() +
                 '}';
     }
+
+    public double cumulativeSalary() {
+        return this.salary + raiseSalary() + bonus() - tax();
+    }
+
 }
